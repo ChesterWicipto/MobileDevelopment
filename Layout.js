@@ -32,7 +32,7 @@ export default class Global extends Component {
                     <Text style={styles.text}>Positif</Text>
                     <Text style={styles.text}>{this.state.positif}</Text>
                 </View>
-                <View style={[styles.box1, {backgroundColor: 'green'}]}>
+                <View style={[styles.box1, {backgroundColor: 'lightgreen'}]}>
                     <Text style={styles.text}>Sembuh</Text>
                     <Text style={styles.text}>{this.state.sembuh}</Text>
                 </View>

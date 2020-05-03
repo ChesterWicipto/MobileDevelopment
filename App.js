@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, FlatList} from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import Greeting from './Greeting';
 import Layout from './Layout';
 import List from './List';
@@ -14,7 +14,8 @@ class App extends React.Component {
     return(
       <View style={styles.container}>
       <Text style={{fontSize:20,fontWeight:'bold'}}>Data Covid-19 & Indonesia</Text>
-      <Text style={{fontSize:50,fontWeight:'bold'}}>GLOBAL</Text>
+      <Image source={require('./covid.jpg')}
+      style={{ width: 200, height: 100 }} />
       <Layout />
       <Text style={{fontSize:50,fontWeight:'bold'}}>Indonesia</Text>
       <List />

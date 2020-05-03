@@ -27,9 +27,6 @@ componentDidMount = () =>{
 
 
     render(){
-        // console.log(this.state.data)
-
-        // const list = this.state.data.map( passingDisini => passingDisini.id)
         return(
             <View style={{flex: 1}}>
                 <FlatList 
@@ -45,10 +42,10 @@ componentDidMount = () =>{
                                     <View style={{height: 25, width: 55, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'center', margin: 5}}>
                                         <Text>{item.kasusPosi}</Text>
                                     </View>
-                                    <View style={{height: 25, width: 55, borderRadius: 10, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                                    <View style={{height: 25, width: 55, borderRadius: 10, backgroundColor: 'lightgreen', justifyContent: 'center', alignItems: 'center', margin: 5}}>
                                         <Text>{item.kasusSemb}</Text>
                                     </View>
-                                    <View style={{height: 20, width: 50, borderRadius: 10, backgroundColor: 'blue', justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                                    <View style={{height: 20, width: 50, borderRadius: 10, backgroundColor: 'red', justifyContent: 'center', alignItems: 'center', margin: 5}}>
                                         <Text>{item.kasusMeni}</Text>
                                     </View>
                                 </View>
