@@ -1,58 +1,78 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native'
+import React, { Component } from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 
+export default class Global extends Component {
+    constructor(){
+        super();
+        this.state = {
+            positif: '',
+            sembuh: '',
+            meninggal: '',
+        }
 
-const Layout= ()=>{
-	return(
+    }
 
-		<View>
-		<Text style={{
-        fontSize:20,
-        fontWeight: 'bold',
-        padding : 40}}
-        >Data COVID-19 Global & Indonesia </Text>
-		<Text style={{
-			color: 'black',
-			fontWeight: 'bold',
-			fontSize : 40
+    componentDidMount(){
+        fetch('https://covid19.mathdro.id/api')
+        .then(response => response.json())
+        .then(json => (
+            this.setState({positif: json.confirmed.value}),
+            this.setState({sembuh: json.recovered.value}),
+            this.setState({meninggal: json.deaths.value})
+            )
+        )
+    }
 
-        }}> GLOBAL </Text>
+    render(){
 
-        <View style={styles.container}>
-        <View style={styles.box1}></View>
-        <View style={styles.box2}></View>
-        <View style={styles.box3}></View>
+        return(
+            
+            <View style={{height: 75, flexDirection: 'row', justifyContent: 'space-evenly'}}>
+                    <View style={[styles.box, {backgroundColor: 'yellow'}]}>
+                    <Text style={styles.text}>Positif</Text>
+                    <Text style={styles.text}>{this.state.positif}</Text>
+                </View>
+                <View style={[styles.box1, {backgroundColor: 'green'}]}>
+                    <Text style={styles.text}>Sembuh</Text>
+                    <Text style={styles.text}>{this.state.sembuh}</Text>
+                </View>
+                <View style={[styles.box2, {backgroundColor: 'red'}]}>
+                    <Text style={styles.text}>Meninggal</Text>
+                    <Text style={styles.text}>{this.state.meninggal}</Text>
+                </View>
+            </View>
 
-
-      </View>
-		</View>
-
-		);
+        )
+    }
 }
-const styles=StyleSheet.create({
-	container: {
-		flex : 1,
-		flexDirection: 'row',
-	},
-	box1 :{
-		width: 90, 
-		height: 40, 
-		backgroundColor: 'orange', 
-		margin: 10,
-	
-	},
 
-	box2 :{
-		width: 90, 
-		height: 40, 
-		backgroundColor: 'yellow', 
-		margin: 10
-	},
-	box3 :{
-		width: 90, 
-		height: 40, 
-		backgroundColor: 'green', 
-		margin: 10
-	}
+const styles = StyleSheet.create({
+    box: {
+        height: 75,
+        width: 90,
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin:10
+    },
+    box1: {
+      height: 75,
+        width: 90,
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10 
+    },
+    box2: {
+        height: 75,
+        width: 90,
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 10
+    },
+    text: {
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
 })
-export default Layout;

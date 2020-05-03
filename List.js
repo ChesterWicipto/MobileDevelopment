@@ -1,60 +1,65 @@
-import React from 'react';
-import { View, Text, FlatList, Image} from 'react-native';
+import React, { Component } from 'react';
+import {View, Text, FlatList} from 'react-native';
 
-class List extends React.Component{
+export default class Indo extends Component{
     constructor(){
         super();
         this.state = {
-            users: [],
-            refreshing: false
+            data: [],
+            refreshing:false
         }
-    }
 
-    renderItem = ({ item }) => (
-        <View style={{ flex: 1, flexDirection: 'row', padding: 20, borderBottomWidth: 1, borderBottomColor: '#000', backgroundColor: 'brown'}}>
-            <Image 
-                source={{ uri : 'https://robohash.org/${item.id}?set=set2'}}
-                style={{ width: 50, height: 50 }}
-            />
-            <View>
-                <Text>Name: {item.name}</Text>
-                <Text>Username: {item.username}</Text>
-            </View>
-        </View>
-    )
-
-    onRefresh = () => {
-        this.getDataApi();
 
     }
+    onRefresh= () =>{
+    this.getDataGlobal();
+}
 
-    componentDidMount = () => {
-        this.getDataApi();
+componentDidMount = () =>{
+    this.getDataGlobal();
+}
+
+    getDataGlobal = () => {
+        fetch('https://indonesia-covid-19.mathdro.id/api/provinsi')
+        .then(response => response.json())
+        .then(json => this.setState({data: json.data}))
     }
 
-    getDataApi = async () => {
-        this.setState({ refreshing: true })
-        
-        const response = await fetch('http://jsonplaceholder.typicode.com/users');
-        const json = await response.json();
-        this.setState({ users: json, refreshing: false })
-    }
-   
+
     render(){
-        return (
-            <View>
-               <FlatList
-                   data={this.state.users}
-                   keyExtractor={item => item.id.toString()}
-                   renderItem={this.renderItem}
-                   refreshing={this.state.refreshing}
-                   onRefresh={this.onRefresh}
-                   showsVerticalScrollIndicator={false}
+        // console.log(this.state.data)
+
+        // const list = this.state.data.map( passingDisini => passingDisini.id)
+        return(
+            <View style={{flex: 1}}>
+                <FlatList 
+                    data={this.state.data}
+                    keyExtractor={item => item.fid.toString()}
+                    renderItem = {
+                        ({item}) => (
+                            <View style={{height: 50, flexDirection: 'row', alignItems:'center',justifyContent: 'space-between', borderWidth: 2, borderColor:'black', borderRadius: 10, margin: 5}}>
+                                <View style={{marginLeft: 5}}>
+                                    <Text>{item.provinsi}</Text>
+                                </View>
+                                <View style={{flexDirection:'row'}}>
+                                    <View style={{height: 25, width: 55, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                                        <Text>{item.kasusPosi}</Text>
+                                    </View>
+                                    <View style={{height: 25, width: 55, borderRadius: 10, backgroundColor: 'green', justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                                        <Text>{item.kasusSemb}</Text>
+                                    </View>
+                                    <View style={{height: 20, width: 50, borderRadius: 10, backgroundColor: 'blue', justifyContent: 'center', alignItems: 'center', margin: 5}}>
+                                        <Text>{item.kasusMeni}</Text>
+                                    </View>
+                                </View>
+                            </View>
+                        )
+                    }
+                    
+                    refreshing= {this.state.refreshing}
+                    onRefresh ={this.onRefresh}
                 />
             </View>
         )
     }
 }
-
-
-export default List;
